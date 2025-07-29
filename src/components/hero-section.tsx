@@ -169,7 +169,7 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.4 }}
-              className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start mb-12"
+              className="flex justify-center lg:justify-start mb-12"
             >
               <motion.div
                 whileHover={{ scale: 1.05 }}
@@ -184,20 +184,6 @@ const HeroSection = () => {
                     🚀 Start Your AI Journey
                     <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
                   </span>
-                </Button>
-              </motion.div>
-              
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <Button 
-                  variant="secondary" 
-                  size="xl"
-                  className="group glass border-2 border-white/30 text-gray-700 font-semibold hover:bg-white/80 hover:border-white/50 transition-all duration-300 shadow-xl hover:shadow-2xl"
-                >
-                  <Play className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
-                  Watch AI in Action
                 </Button>
               </motion.div>
             </motion.div>

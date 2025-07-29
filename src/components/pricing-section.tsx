@@ -5,11 +5,17 @@ import { motion, useScroll, useTransform, useInView } from 'framer-motion'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Check, Star, Zap, Crown, Sparkles, ArrowRight, Shield, Users, TrendingUp } from 'lucide-react'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Check, Star, Zap, Crown, Sparkles, ArrowRight, Shield, Users, TrendingUp, Calculator, Minus, Plus } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const PricingSection = () => {
   const [isAnnual, setIsAnnual] = useState(true)
+  const [calculatorValues, setCalculatorValues] = useState({
+    teamMembers: 5,
+    contentPieces: 1000,
+    campaigns: 10
+  })
   const sectionRef = useRef<HTMLElement>(null)
   const isInView = useInView(sectionRef, { once: true, margin: "-200px" })
 
@@ -19,6 +25,37 @@ const PricingSection = () => {
   })
 
   const headerY = useTransform(scrollYProgress, [0, 1], [100, -100])
+
+  // Calculate dynamic pricing based on usage
+  const calculateCustomPrice = () => {
+    const basePrice = 29
+    const teamMemberCost = Math.max(0, calculatorValues.teamMembers - 3) * 15
+    const contentCost = Math.max(0, calculatorValues.contentPieces - 1000) * 0.02
+    const campaignCost = Math.max(0, calculatorValues.campaigns - 10) * 5
+    
+    const monthlyTotal = basePrice + teamMemberCost + contentCost + campaignCost
+    return {
+      monthly: monthlyTotal,
+      annual: monthlyTotal * 12 * 0.8 // 20% discount for annual
+    }
+  }
+
+  const customPrice = calculateCustomPrice()
+
+  const updateCalculatorValue = (key: keyof typeof calculatorValues, increment: boolean) => {
+    setCalculatorValues(prev => {
+      const current = prev[key]
+      const step = key === 'contentPieces' ? 500 : key === 'campaigns' ? 5 : 1
+      const min = key === 'contentPieces' ? 500 : key === 'campaigns' ? 5 : 1
+      const max = key === 'teamMembers' ? 100 : key === 'contentPieces' ? 50000 : 100
+      
+      const newValue = increment 
+        ? Math.min(max, current + step)
+        : Math.max(min, current - step)
+      
+      return { ...prev, [key]: newValue }
+    })
+  }
 
   const plans = [
     {
@@ -89,6 +126,164 @@ const PricingSection = () => {
       iconColor: "text-gray-700"
     }
   ]
+
+  const PricingCalculator = () => (
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.8, delay: 0.6 }}
+      className="mb-16"
+    >
+      <Card className="glass border-2 border-white/20 bg-gradient-to-br from-blue-50/50 to-purple-50/50 backdrop-blur-xl shadow-2xl">
+        <CardHeader className="text-center pb-8">
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={isInView ? { scale: 1 } : {}}
+            transition={{ duration: 0.5, delay: 0.8 }}
+            className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl mx-auto mb-4"
+          >
+            <Calculator className="w-8 h-8 text-white" />
+          </motion.div>
+          <CardTitle className="text-3xl font-bold text-gradient-primary mb-2">
+            Custom Pricing Calculator
+          </CardTitle>
+          <CardDescription className="text-lg text-gray-600">
+            Get personalized pricing based on your specific needs
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-8">
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Team Members */}
+            <div className="space-y-4">
+              <label className="block text-sm font-semibold text-gray-700">
+                Team Members
+              </label>
+              <div className="flex items-center space-x-4">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => updateCalculatorValue('teamMembers', false)}
+                  className="h-10 w-10 rounded-full border-2 border-blue-200 hover:border-blue-400 hover:bg-blue-50"
+                >
+                  <Minus className="h-4 w-4" />
+                </Button>
+                <div className="flex-1 text-center">
+                  <div className="text-2xl font-bold text-blue-600">{calculatorValues.teamMembers}</div>
+                  <div className="text-xs text-gray-500">members</div>
+                </div>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => updateCalculatorValue('teamMembers', true)}
+                  className="h-10 w-10 rounded-full border-2 border-blue-200 hover:border-blue-400 hover:bg-blue-50"
+                >
+                  <Plus className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+
+            {/* Content Pieces */}
+            <div className="space-y-4">
+              <label className="block text-sm font-semibold text-gray-700">
+                Monthly Content Pieces
+              </label>
+              <div className="flex items-center space-x-4">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => updateCalculatorValue('contentPieces', false)}
+                  className="h-10 w-10 rounded-full border-2 border-purple-200 hover:border-purple-400 hover:bg-purple-50"
+                >
+                  <Minus className="h-4 w-4" />
+                </Button>
+                <div className="flex-1 text-center">
+                  <div className="text-2xl font-bold text-purple-600">{calculatorValues.contentPieces.toLocaleString()}</div>
+                  <div className="text-xs text-gray-500">pieces</div>
+                </div>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => updateCalculatorValue('contentPieces', true)}
+                  className="h-10 w-10 rounded-full border-2 border-purple-200 hover:border-purple-400 hover:bg-purple-50"
+                >
+                  <Plus className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+
+            {/* Active Campaigns */}
+            <div className="space-y-4">
+              <label className="block text-sm font-semibold text-gray-700">
+                Active Campaigns
+              </label>
+              <div className="flex items-center space-x-4">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => updateCalculatorValue('campaigns', false)}
+                  className="h-10 w-10 rounded-full border-2 border-pink-200 hover:border-pink-400 hover:bg-pink-50"
+                >
+                  <Minus className="h-4 w-4" />
+                </Button>
+                <div className="flex-1 text-center">
+                  <div className="text-2xl font-bold text-pink-600">{calculatorValues.campaigns}</div>
+                  <div className="text-xs text-gray-500">campaigns</div>
+                </div>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => updateCalculatorValue('campaigns', true)}
+                  className="h-10 w-10 rounded-full border-2 border-pink-200 hover:border-pink-400 hover:bg-pink-50"
+                >
+                  <Plus className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Calculated Price Display */}
+          <motion.div 
+            className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 p-1 rounded-2xl"
+            animate={{ 
+              backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+            }}
+            transition={{ 
+              duration: 3, 
+              repeat: Infinity,
+              ease: 'linear'
+            }}
+            style={{ backgroundSize: '200% 200%' }}
+          >
+            <div className="bg-white rounded-xl p-6 text-center">
+              <div className="text-sm text-gray-600 mb-2">Your Custom Pricing</div>
+              <div className="flex items-center justify-center space-x-4">
+                <div>
+                  <div className="text-3xl font-bold text-gradient-primary">
+                    ${isAnnual ? Math.round(customPrice.annual / 12) : Math.round(customPrice.monthly)}
+                  </div>
+                  <div className="text-sm text-gray-600">per month</div>
+                </div>
+                {isAnnual && (
+                  <div className="text-right">
+                    <Badge className="bg-green-100 text-green-700 border-green-200">
+                      Save ${Math.round((customPrice.monthly * 12) - customPrice.annual)}/year
+                    </Badge>
+                  </div>
+                )}
+              </div>
+              <Button 
+                className="mt-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                size="lg"
+              >
+                Get Custom Quote
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </div>
+          </motion.div>
+        </CardContent>
+      </Card>
+    </motion.div>
+  )
 
   const PricingCard = ({ plan, index }: { plan: any; index: number }) => {
     const cardRef = useRef<HTMLDivElement>(null)
@@ -381,12 +576,30 @@ const PricingSection = () => {
           </motion.div>
         </motion.div>
 
-        {/* Pricing Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6 mb-20">
-          {plans.map((plan, index) => (
-            <PricingCard key={plan.name} plan={plan} index={index} />
-          ))}
-        </div>
+        {/* Tabbed Interface */}
+        <Tabs defaultValue="plans" className="w-full mb-20">
+          <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-12 bg-white/50 backdrop-blur-sm">
+            <TabsTrigger value="plans" className="data-[state=active]:bg-white data-[state=active]:shadow-md">
+              Pre-built Plans
+            </TabsTrigger>
+            <TabsTrigger value="calculator" className="data-[state=active]:bg-white data-[state=active]:shadow-md">
+              Custom Calculator
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="plans">
+            {/* Pricing Cards */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6">
+              {plans.map((plan, index) => (
+                <PricingCard key={plan.name} plan={plan} index={index} />
+              ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="calculator">
+            <PricingCalculator />
+          </TabsContent>
+        </Tabs>
 
         {/* Trust Indicators */}
         <motion.div

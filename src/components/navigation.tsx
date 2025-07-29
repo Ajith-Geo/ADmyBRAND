@@ -45,10 +45,11 @@ const Navigation = () => {
 
   const navItems = [
     { name: 'Home', href: 'hero' },
-    { name: 'About Us', href: 'features' },
+    { name: 'Demo', href: 'demo' },
+    { name: 'Features', href: 'features' },
     { name: 'Pricing', href: 'pricing' },
-    { name: 'Resources', href: 'testimonials' },
-    { name: 'Jobs', href: 'faq' }
+    { name: 'Resources', href: 'resources' },
+    { name: 'Contact', href: 'contact' }
   ]
 
   const handleNavClick = (href: string) => {

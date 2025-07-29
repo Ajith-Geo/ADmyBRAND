@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { AnalyticsProvider, ScrollProgressTracker, AnalyticsDebugger } from '@/components/analytics/advanced-analytics'
+import PerformanceMetricsDashboard from '@/components/analytics/performance-metrics-dashboard'
 
 const inter = Inter({
   subsets: ["latin"],
@@ -81,7 +83,12 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
       </head>
       <body className={`font-sans antialiased`}>
-        {children}
+        <AnalyticsProvider>
+          {children}
+          <ScrollProgressTracker />
+          <AnalyticsDebugger />
+          <PerformanceMetricsDashboard />
+        </AnalyticsProvider>
       </body>
     </html>
   );
