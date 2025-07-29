@@ -85,7 +85,7 @@ const FAQSection = () => {
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Get answers to common questions about ADmyBRAND AI Suite. 
-            Can't find what you're looking for? Contact our support team.
+            Can&apos;t find what you&apos;re looking for? Contact our support team.
           </p>
         </motion.div>
 

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { 
   BarChart3, 
@@ -13,8 +13,7 @@ import {
   Eye, 
   Zap,
   Activity,
-  Target,
-  Globe
+  Target
 } from 'lucide-react'
 
 interface PerformanceMetrics {

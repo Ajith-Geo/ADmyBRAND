@@ -12,10 +12,7 @@ import {
   Shield, 
   Rocket,
   Sparkles,
-  TrendingUp,
-  Users,
   Globe,
-  Lock,
   Bolt
 } from 'lucide-react'
 

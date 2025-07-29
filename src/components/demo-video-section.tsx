@@ -176,7 +176,7 @@ const DemoVideoSection = () => {
           >
             <div className="mb-8">
               <h3 className="text-2xl font-bold text-white mb-4">
-                What You'll See in the Demo
+                What You&apos;ll See in the Demo
               </h3>
               <p className="text-blue-100">
                 Our interactive demo showcases real AI capabilities that are transforming 

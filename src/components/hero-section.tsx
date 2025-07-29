@@ -2,9 +2,10 @@
 
 import React, { useEffect, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { ArrowRight, Play, Sparkles, Zap, Brain, Rocket, Star } from 'lucide-react'
+import { ArrowRight, Sparkles, Zap, Brain, Rocket, Star } from 'lucide-react'
 import { scrollToSection } from '@/lib/utils'
 
 const HeroSection = () => {
@@ -235,7 +236,18 @@ const HeroSection = () => {
                     <div className="w-3 h-3 bg-yellow-400 rounded-full animate-pulse delay-100"></div>
                     <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse delay-200"></div>
                   </div>
-                  <div className="text-sm font-medium text-gray-300">ADmyBRAND AI Dashboard</div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-6 h-6 rounded-md overflow-hidden bg-white shadow-sm">
+                      <Image 
+                        src="https://camo.githubusercontent.com/e4ad37339ddd2e077e52e4189e9ff620eb4139f6c2dcdb506a5f7b77fbc7bdbb/68747470733a2f2f6d656469612e6c6963646e2e636f6d2f646d732f696d6167652f76322f4335313042415145514b6c72663147355153412f636f6d70616e792d6c6f676f5f3230305f3230302f636f6d70616e792d6c6f676f5f3230305f3230302f302f313633303633333031303739352f61646d796272616e645f6c6f676f3f653d3231343734383336343726763d6265746126743d536e6f41786e6d5132426d4f63474b515254584f56346d5f667064565a6643716e4b584f6c496952437173"
+                        alt="ADmyBRAND Logo" 
+                        width={24}
+                        height={24}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="text-sm font-medium text-gray-300">ADmyBRAND AI Dashboard</div>
+                  </div>
                 </div>
 
                 {/* Enhanced Dashboard Content */}

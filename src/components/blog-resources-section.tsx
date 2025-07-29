@@ -2,6 +2,7 @@
 
 import React, { useState, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
+import Image from 'next/image'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -15,11 +16,8 @@ import {
   Clock, 
   ArrowRight, 
   ExternalLink,
-  TrendingUp,
-  Users,
   Lightbulb,
   Target,
-  Zap,
   BarChart3
 } from 'lucide-react'
 
@@ -268,7 +266,7 @@ const BlogResourcesSection = () => {
 
           <TabsContent value="blog" className="space-y-8">
             {/* Featured Post */}
-            {filteredPosts.filter(post => post.featured).map((post, index) => (
+            {filteredPosts.filter(post => post.featured).map((post) => (
               <motion.div
                 key={post.id}
                 initial={{ opacity: 0, y: 50 }}
@@ -280,7 +278,15 @@ const BlogResourcesSection = () => {
                     <div className="relative overflow-hidden">
                       <div className="aspect-[4/3] bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
                         <div className="text-center text-white">
-                          <FileText className="w-16 h-16 mx-auto mb-4 opacity-80" />
+                          <div className="w-16 h-16 mx-auto mb-4 bg-white/20 rounded-xl backdrop-blur-sm flex items-center justify-center">
+                            <Image 
+                              src="https://camo.githubusercontent.com/e4ad37339ddd2e077e52e4189e9ff620eb4139f6c2dcdb506a5f7b77fbc7bdbb/68747470733a2f2f6d656469612e6c6963646e2e636f6d2f646d732f696d6167652f76322f4335313042415145514b6c72663147355153412f636f6d70616e792d6c6f676f5f3230305f3230302f636f6d70616e792d6c6f676f5f3230305f3230302f302f313633303633333031303739352f61646d796272616e645f6c6f676f3f653d3231343734383336343726763d6265746126743d536e6f41786e6d5132426d4f63474b515254584f56346d5f667064565a6643716e4b584f6c496952437173"
+                              alt="ADmyBRAND Logo" 
+                              width={48}
+                              height={48}
+                              className="w-12 h-12 object-cover rounded-lg"
+                            />
+                          </div>
                           <p className="text-lg font-semibold">Featured Article</p>
                         </div>
                       </div>

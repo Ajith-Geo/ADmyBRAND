@@ -1,13 +1,13 @@
 "use client"
 
 import React, { useEffect, useState, useRef } from 'react'
-import { motion, useInView, useScroll, useMotionValue } from 'framer-motion'
+import { motion, useInView, useScroll } from 'framer-motion'
 
 // Analytics configuration
 interface AnalyticsEvent {
   event: string
   timestamp: number
-  data?: Record<string, any>
+  data?: Record<string, unknown>
   sessionId: string
   userId?: string
 }
@@ -129,7 +129,7 @@ class AdvancedAnalytics {
     return path.join(' > ')
   }
 
-  trackEvent(event: string, data?: Record<string, any>) {
+  trackEvent(event: string, data?: Record<string, unknown>) {
     const analyticsEvent: AnalyticsEvent = {
       event,
       timestamp: Date.now(),
@@ -152,7 +152,7 @@ class AdvancedAnalytics {
     }
   }
 
-  trackCustomEvent(eventName: string, properties: Record<string, any> = {}) {
+  trackCustomEvent(eventName: string, properties: Record<string, unknown> = {}) {
     this.trackEvent(`custom_${eventName}`, {
       ...properties,
       url: window.location.href,
@@ -244,11 +244,11 @@ export const AnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
 // Hook for using analytics in components
 export const useAnalytics = () => {
-  const trackEvent = (event: string, data?: Record<string, any>) => {
+  const trackEvent = (event: string, data?: Record<string, unknown>) => {
     analytics?.trackEvent(event, data)
   }
 
-  const trackCustomEvent = (eventName: string, properties?: Record<string, any>) => {
+  const trackCustomEvent = (eventName: string, properties?: Record<string, unknown>) => {
     analytics?.trackCustomEvent(eventName, properties)
   }
 
@@ -299,7 +299,7 @@ export const SectionViewTracker: React.FC<{
 // Click Tracker Component
 export const ClickTracker: React.FC<{
   eventName: string
-  properties?: Record<string, any>
+  properties?: Record<string, unknown>
   children: React.ReactNode
   className?: string
 }> = ({ eventName, properties, children, className }) => {
@@ -348,14 +348,22 @@ export const ScrollProgressTracker: React.FC = () => {
 
 // Real-time Analytics Dashboard Component (for demo purposes)
 export const AnalyticsDebugger: React.FC = () => {
-  const [stats, setStats] = useState<any>(null)
+  const [stats, setStats] = useState<{
+    sessionId: string
+    duration: number
+    eventCount: number
+    interactionCount: number
+    heatmapPoints: number
+  } | null>(null)
   const [isVisible, setIsVisible] = useState(false)
   const { getSessionStats } = useAnalytics()
 
   useEffect(() => {
     const interval = setInterval(() => {
       const currentStats = getSessionStats()
-      setStats(currentStats)
+      if (currentStats) {
+        setStats(currentStats)
+      }
     }, 1000)
 
     return () => clearInterval(interval)

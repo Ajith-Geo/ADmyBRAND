@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { 
   Twitter, 
@@ -11,7 +12,6 @@ import {
   Mail, 
   ArrowUp 
 } from 'lucide-react'
-import { scrollToSection } from '@/lib/utils'
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -71,8 +71,14 @@ const Footer = () => {
             >
               {/* Logo */}
               <div className="flex items-center space-x-3 mb-6">
-                <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">AI</span>
+                <div className="w-12 h-12 rounded-xl overflow-hidden bg-white shadow-lg">
+                  <Image 
+                    src="https://camo.githubusercontent.com/e4ad37339ddd2e077e52e4189e9ff620eb4139f6c2dcdb506a5f7b77fbc7bdbb/68747470733a2f2f6d656469612e6c6963646e2e636f6d2f646d732f696d6167652f76322f4335313042415145514b6c72663147355153412f636f6d70616e792d6c6f676f5f3230305f3230302f636f6d70616e792d6c6f676f5f3230305f3230302f302f313633303633333031303739352f61646d796272616e645f6c6f676f3f653d3231343734383336343726763d6265746126743d536e6f41786e6d5132426d4f63474b515254584f56346d5f667064565a6643716e4b584f6c496952437173"
+                    alt="ADmyBRAND Logo" 
+                    width={48}
+                    height={48}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <span className="text-2xl font-bold">ADmyBRAND AI</span>
               </div>

@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -57,19 +57,19 @@ const TestimonialsSection = () => {
     }
   ]
 
-  const nextTestimonial = () => {
+  const nextTestimonial = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length)
-  }
+  }, [testimonials.length])
 
-  const prevTestimonial = () => {
+  const prevTestimonial = useCallback(() => {
     setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)
-  }
+  }, [testimonials.length])
 
   // Auto-rotate testimonials
   useEffect(() => {
     const interval = setInterval(nextTestimonial, 5000)
     return () => clearInterval(interval)
-  }, [])
+  }, [nextTestimonial])
 
   return (
     <section id="testimonials" className="py-24 bg-gradient-to-b from-white to-blue-50">
@@ -124,7 +124,7 @@ const TestimonialsSection = () => {
 
                     {/* Testimonial Content */}
                     <blockquote className="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed font-medium">
-                      "{testimonials[currentIndex].content}"
+                      &ldquo;{testimonials[currentIndex].content}&rdquo;
                     </blockquote>
 
                     {/* Author Info */}

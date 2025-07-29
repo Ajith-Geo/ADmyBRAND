@@ -76,7 +76,7 @@ const ContactSection = () => {
             </span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Ready to transform your marketing? Let's discuss how ADmyBRAND AI 
+            Ready to transform your marketing? Let&apos;s discuss how ADmyBRAND AI 
             can help you achieve your goals.
           </p>
         </motion.div>
@@ -92,10 +92,10 @@ const ContactSection = () => {
           >
             <div>
               <h3 className="text-2xl font-bold text-gray-900 mb-6">
-                Let's Start a Conversation
+                Let&apos;s Start a Conversation
               </h3>
               <p className="text-gray-600 text-lg leading-relaxed">
-                Whether you're looking to streamline your marketing operations, 
+                Whether you&apos;re looking to streamline your marketing operations, 
                 boost campaign performance, or explore custom AI solutions, 
                 our team is here to help you succeed.
               </p>
@@ -151,7 +151,7 @@ const ContactSection = () => {
                   Send us a Message
                 </CardTitle>
                 <CardDescription>
-                  Fill out the form below and we'll get back to you within 24 hours.
+                  Fill out the form below and we&apos;ll get back to you within 24 hours.
                 </CardDescription>
               </CardHeader>
               <CardContent>

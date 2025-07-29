@@ -9,6 +9,19 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Check, Star, Zap, Crown, Sparkles, ArrowRight, Shield, Users, TrendingUp, Calculator, Minus, Plus } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
+interface Plan {
+  name: string
+  description: string
+  icon: React.ComponentType<{ className?: string }>
+  monthlyPrice: number
+  annualPrice: number
+  popular: boolean
+  features: string[]
+  gradient: string
+  bgGradient: string
+  iconColor: string
+}
+
 const PricingSection = () => {
   const [isAnnual, setIsAnnual] = useState(true)
   const [calculatorValues, setCalculatorValues] = useState({
@@ -285,7 +298,7 @@ const PricingSection = () => {
     </motion.div>
   )
 
-  const PricingCard = ({ plan, index }: { plan: any; index: number }) => {
+  const PricingCard = ({ plan, index }: { plan: Plan; index: number }) => {
     const cardRef = useRef<HTMLDivElement>(null)
     const cardIsInView = useInView(cardRef, { once: true, margin: "-100px" })
     const [isHovered, setIsHovered] = useState(false)

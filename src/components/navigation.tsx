@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
-import { Menu, X, Sparkles, Moon } from 'lucide-react'
+import { Menu, X, Moon } from 'lucide-react'
+import Image from 'next/image'
 import { cn } from '@/lib/utils'
 import { scrollToSection } from '@/lib/utils'
 
@@ -77,18 +78,19 @@ const Navigation = () => {
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.2 }}
           >
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-3">
               <motion.div 
-                className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center"
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.6 }}
+                className="w-10 h-10 rounded-lg overflow-hidden bg-white shadow-md"
+                whileHover={{ rotate: 5 }}
+                transition={{ duration: 0.3 }}
               >
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                >
-                  <Sparkles className="w-4 h-4 text-white" />
-                </motion.div>
+                <Image 
+                  src="https://camo.githubusercontent.com/e4ad37339ddd2e077e52e4189e9ff620eb4139f6c2dcdb506a5f7b77fbc7bdbb/68747470733a2f2f6d656469612e6c6963646e2e636f6d2f646d732f696d6167652f76322f4335313042415145514b6c72663147355153412f636f6d70616e792d6c6f676f5f3230305f3230302f636f6d70616e792d6c6f676f5f3230305f3230302f302f313633303633333031303739352f61646d796272616e645f6c6f676f3f653d3231343734383336343726763d6265746126743d536e6f41786e6d5132426d4f63474b515254584f56346d5f667064565a6643716e4b584f6c496952437173"
+                  alt="ADmyBRAND Logo" 
+                  width={40}
+                  height={40}
+                  className="w-full h-full object-cover"
+                />
               </motion.div>
               <span className="text-xl font-bold text-gray-900">
                 ADmyBRAND
